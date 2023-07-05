@@ -2,16 +2,19 @@ package com.example.demo.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import java.util.List;
 
 @Entity
 public class Activity {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
     private String text;
-    private long entryId;
+
 
     public String getText() {
         return text;
@@ -21,14 +24,6 @@ public class Activity {
         this.text = text;
     }
 
-    public long getEntryId() {
-        return entryId;
-    }
-
-    public void setEntryId(long entryId) {
-        this.entryId = entryId;
-    }
-
     public long getId() {
         return id;
     }
@@ -36,4 +31,5 @@ public class Activity {
     public void setId(long id) {
         this.id = id;
     }
+
 }

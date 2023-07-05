@@ -16,36 +16,36 @@ public class EmployeeController {
     @Autowired
     private EmployeeServiceImpl employeeServiceImpl;
 
-    @GetMapping("/")
+    @GetMapping("/employee/")
     public String viewHomePage(Model model) {
         model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
         return "index";
     }
 
-    @GetMapping("/addnew")
+    @GetMapping("/employee/addnew")
     public String addNewEmployee(Model model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
         return "newemployee";
     }
 
-    @PostMapping("/save")
+    @PostMapping("/employee/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         employeeServiceImpl.save(employee);
-        return "redirect:/";
+        return "redirect:..";
     }
 
-    @GetMapping("/showFormForUpdate/{id}")
+    @GetMapping("/employee/showFormForUpdate/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         Employee employee = employeeServiceImpl.getById(id);
         model.addAttribute("employee", employee);
         return "update";
     }
 
-    @GetMapping("/deleteEmployee/{id}")
+    @GetMapping("/employee/deleteEmployee/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
         employeeServiceImpl.deleteViaId(id);
-        return "redirect:/";
+        return "redirect:..";
 
     }
 }

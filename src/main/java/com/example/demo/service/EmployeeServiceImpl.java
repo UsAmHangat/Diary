@@ -36,7 +36,7 @@ public class EmployeeServiceImpl
         return employee;
     }
 
-    @Override public void deleteViaId(long id)
+    @Override public void deleteViaId(Long id)
     {
         empRepo.deleteById(id);
     }
