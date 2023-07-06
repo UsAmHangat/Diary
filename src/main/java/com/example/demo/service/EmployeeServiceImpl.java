@@ -12,32 +12,34 @@ import org.springframework.stereotype.Service;
 public class EmployeeServiceImpl
         implements EmployeeServices {
 
-    @Autowired private EmployeeRepository empRepo;
+    @Autowired
+    private EmployeeRepository empRepo;
 
-    @Override public List<Employee> getAllEmployee()
-    {
+    @Override
+    public List<Employee> getAllEmployee() {
         return empRepo.findAll();
     }
 
-    @Override public void save(Employee employee)
-    {
+    @Override
+    public void save(Employee employee) {
         empRepo.save(employee);
     }
 
-    @Override public Employee getById(Long id)
-    {
+    @Override
+    public Employee getById(Long id) {
         Optional<Employee> optional = empRepo.findById(id);
         Employee employee = null;
-        if (optional.isPresent())
+        if (optional.isPresent()) {
             employee = optional.get();
-        else
+        } else {
             throw new RuntimeException(
                     "Employee not found for id : " + id);
+        }
         return employee;
     }
 
-    @Override public void deleteViaId(Long id)
-    {
+    @Override
+    public void deleteViaId(Long id) {
         empRepo.deleteById(id);
     }
 }

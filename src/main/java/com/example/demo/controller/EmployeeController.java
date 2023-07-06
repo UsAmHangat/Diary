@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Employee;
+import com.example.demo.model.Entry;
 import com.example.demo.service.EmployeeServiceImpl;
+import com.example.demo.service.EntryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +17,7 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeServiceImpl;
+    @Autowired EntryServiceImpl entryServiceImpl;
 
     @GetMapping("/employee/")
     public String viewHomePage(Model model) {
@@ -32,10 +35,10 @@ public class EmployeeController {
     @PostMapping("/employee/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
         employeeServiceImpl.save(employee);
-        return "redirect:..";
+        return "redirect:/employee/";
     }
 
-    @GetMapping("/employee/showFormForUpdate/{id}")
+    @GetMapping("/employee/updateEmployee/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         Employee employee = employeeServiceImpl.getById(id);
         model.addAttribute("employee", employee);
@@ -45,7 +48,12 @@ public class EmployeeController {
     @GetMapping("/employee/deleteEmployee/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
         employeeServiceImpl.deleteViaId(id);
-        return "redirect:..";
+        return "redirect:/employee/";
 
+    }
+    @GetMapping("/employee/showEmployee/{id}")
+    public String entry(Model model){
+        model.addAttribute("allEntList", entryServiceImpl.getAllEntrys());
+        return "employeeIndex";
     }
 }
