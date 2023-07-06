@@ -26,13 +26,13 @@
         <tr th:each="employee:${allemplist}">
             <td th:text="${employee.name}"></td>
             <td th:text="${employee.email}"></td>
-            <td> <a th:href="@{/employee/showEmployee/${employee.id}}"
+            <td> <a th:href="@{'/employee/showEmployee/' + ${employee.id}}"
                     class="btn btn-primary">Show Employee</a>
 
-                <a th:href="@{/employee/updateEmployee/${employee.id}}"
+                <a th:href="@{'/employee/updateEmployee/' + ${employee.id}}"
                    class="btn btn-secondary">Update</a>
 
-                <a th:href="@{/employee/deleteEmployee/${employee.id}}"
+                <a th:href="@{'/employee/deleteEmployee/' + ${employee.id}}"
                    class="btn btn-danger">Delete</a>
 
             </td>

@@ -1,7 +1,6 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Employee;
-import com.example.demo.model.Entry;
 import com.example.demo.service.EmployeeServiceImpl;
 import com.example.demo.service.EntryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,8 @@ public class EmployeeController {
 
     @Autowired
     private EmployeeServiceImpl employeeServiceImpl;
-    @Autowired EntryServiceImpl entryServiceImpl;
+    @Autowired
+    private EntryServiceImpl entryServiceImpl;
 
     @GetMapping("/employee/")
     public String viewHomePage(Model model) {
@@ -52,8 +52,9 @@ public class EmployeeController {
 
     }
     @GetMapping("/employee/showEmployee/{id}")
-    public String entry(Model model){
-        model.addAttribute("allEntList", entryServiceImpl.getAllEntrys());
+    public String showEmployee(Model model, @PathVariable(value = "id") long id) {
+        Employee employee = employeeServiceImpl.getById(id);
+        model.addAttribute("employee", employee);
         return "employeeIndex";
     }
 }

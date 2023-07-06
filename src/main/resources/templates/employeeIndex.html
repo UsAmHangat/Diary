@@ -7,14 +7,17 @@
           href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
+    <link rel="stylesheet" th:href="@{/styles/style.css}"/>
 </head>
 <body>
 <div class="container my-2" align="center">
 
-    <h3>Employee</h3>
-    <a th:href="@{/employee/${employee.id}/addnewentry}" class="btn btn-primary btn-sm mb-3" >Add Entry</a>
+    <h3>
+        <td th:text="${employee.name}"></td>
+    </h3>
+    <a th:href="@{/employee/${employee.id}/entry/addnewentry}" class="btn btn-primary btn-sm mb-3">Add Entry</a>
     <table style="width:80%" border="1"
-           class = "table table-striped table-responsive-md">
+           class="table table-striped table-responsive-md">
         <thead>
         <tr>
             <th>Description</th>
@@ -26,11 +29,11 @@
         <tr th:each="entry:${allentlist}">
             <td th:text="${entry.description}"></td>
 
-            <td> <a th:href="@{/employee/${employee.id}/entry/${entry.id}}"
-                    class="btn btn-primary">Show Entry</a>
+            <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id}}"
+                   class="btn btn-primary">Show Entry</a>
 
 
-                <a th:href="@{/employee/deleteEmployee/{id}(id=${employee.id})}"
+                <a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id} + '/deleteEntry/}"
                    class="btn btn-danger">Delete</a>
 
             </td>
