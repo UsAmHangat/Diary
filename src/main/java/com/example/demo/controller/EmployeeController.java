@@ -29,7 +29,7 @@ public class EmployeeController {
     public String addNewEmployee(Model model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
-        return "newemployee";
+        return "employee/newemployee";
     }
 
     @PostMapping("/employee/save")
@@ -42,7 +42,7 @@ public class EmployeeController {
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
         Employee employee = employeeServiceImpl.getById(id);
         model.addAttribute("employee", employee);
-        return "update";
+        return "employee/employeeUpdate";
     }
 
     @GetMapping("/employee/deleteEmployee/{id}")
@@ -55,6 +55,6 @@ public class EmployeeController {
     public String showEmployee(Model model, @PathVariable(value = "id") long id) {
         Employee employee = employeeServiceImpl.getById(id);
         model.addAttribute("employee", employee);
-        return "employeeIndex";
+        return "employee/employeeIndex";
     }
 }

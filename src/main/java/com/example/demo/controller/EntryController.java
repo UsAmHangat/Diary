@@ -17,5 +17,15 @@ public class EntryController {
     @Autowired
     private EntryServiceImpl entryServiceImpl;
 
+    @GetMapping("/entry/")
+    public String viewHomePage(Model model) {
+        model.addAttribute("allemplist", entryServiceImpl.getAllEntrys());
+        return "redirect:entry/entryIndex";
+    }
 
+    @GetMapping("/entry/create")
+    public String createEntry(Model model, @RequestParam String employeeId) {
+        System.out.println("createEntry for: " + employeeId);
+        return "redirect:/";
+    }
 }

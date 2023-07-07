@@ -13,9 +13,9 @@
 <div class="container my-2" align="center">
 
     <h3>
-        <td th:text="${employee.name}"></td>
+        <td th:text="${entry.description}"></td>
     </h3>
-    <a th:href="@{/employee/${employee.id}/entry/addnewentry}" class="btn btn-primary btn-sm mb-3">Add Entry</a>
+    <a th:href="@{/entry/${employee.id}/entry/addnewentry}" class="btn btn-primary btn-sm mb-3">Add Entry</a>
     <table style="width:80%" border="1"
            class="table table-striped table-responsive-md">
         <thead>
