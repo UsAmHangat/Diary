@@ -17,6 +17,16 @@ public class EntryController {
     @Autowired
     private EntryServiceImpl entryServiceImpl;
 
+
+    @GetMapping("/sandbox")
+    public String getSandbox(Model model){
+        return "sandbox";
+    }
+    @GetMapping("/sandbox/create")
+    public String createSandbox(Model model) {
+        return "create";
+    }
+
     @GetMapping("/entry/")
     public String viewHomePage(Model model) {
         model.addAttribute("allemplist", entryServiceImpl.getAllEntrys());
