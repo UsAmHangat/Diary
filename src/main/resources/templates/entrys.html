@@ -10,13 +10,15 @@
 </head>
 <body>
 <div class="container">
-    <h1>Sandbox</h1>
+    <h1>Entrys</h1>
     <hr>
     <button type="submit" class="btn btn-info mb-4">
         Save Entry
     </button>
     <form action="#"
           method="POST">
+        <input id="Description" onkeyup="checkContent()" type="text" placeholder="Description..."
+               class="form-control mb-4 col-4">
         <input id="EntryField" onkeyup="checkContent()" type="text" placeholder="Entry text..."
                class="form-control mb-4 col-4">
         <div>
@@ -56,12 +58,17 @@
                 <label class="form-check-label">Shine</label>
             </div>
         </div>
-        <br>
-        <div>
-            <a th:href="@{/sandbox/create}" class="btn btn-info  mb-2 col-2" name="add">
-                Add Activity
-            </a>
-        </div>
+    </form>
+    <hr>
+    <form action="#" th:action="@{'/employee/{employeeId}/entrys/{entryId}}/createActivity'}" th:object="${activity}"
+          method="POST">
+        <input id="ActivityField" onkeyup="checkContent()" type="text" placeholder="Activity text..."
+               class="form-control mb-4 col-4">
+
+
+        <button type="submit" class="btn btn-info col-2">
+            Add Activity
+        </button>
     </form>
 
     <hr>

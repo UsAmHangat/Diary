@@ -15,7 +15,9 @@
     <h3>
         <td th:text="${employee.name}"></td>
     </h3>
-    <a th:href="@{'/employee/' + ${employee.id} + '/entry/addnewentry'}" class="btn btn-primary btn-sm mb-3">Add Entry</a>
+    <form action="#" th:action="@{'/employee/' + ${employee.id} + '/entrys/createEntry/'}" method="POST">
+        <button type="submit" class="btn btn-info mb-4">Add Entry</button>
+    </form>
     <table style="width:80%" border="1"
            class="table table-striped table-responsive-md">
         <thead>
@@ -26,7 +28,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="entry:${allentlist}">
+        <tr th:each="entry:${allEntryList}">
             <td th:text="${entry.description}"></td>
 
             <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id}}"

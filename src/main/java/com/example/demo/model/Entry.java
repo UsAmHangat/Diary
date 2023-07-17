@@ -14,6 +14,8 @@ public class Entry {
     private long id;
     private String text;
 
+    private int mood;
+
     private String description;
     public long getId() {
         return id;
