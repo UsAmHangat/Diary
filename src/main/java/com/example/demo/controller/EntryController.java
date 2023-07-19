@@ -22,24 +22,6 @@ public class EntryController {
     @Autowired
     private ActivityServiceImpl activityServiceImpl;
 
-    //    Getting the Id
-    @ModelAttribute("employee")
-    public Employee prepareEmployee(@PathVariable long employeeId) {
-        return employeeServiceImpl.getById(employeeId);
-    }
-
-/*
-    @ModelAttribute("entry")
-    public Entry prepareEntry(@PathVariable long entryId) {
-        return entryServiceImpl.getById(entryId);
-    }
-*/
-    /*
-            @ModelAttribute("activity")
-            public Activity prepareActivity(@PathVariable long activityId){
-                return activityServiceImpl.getById(activityId);
-            }
-        */
     // URL and what they are doing
     @GetMapping("/employee/{employeeId}/entrys/")
     public String getEntry(@ModelAttribute Employee employee, Model model) {
@@ -48,35 +30,33 @@ public class EntryController {
     }
 
     @PostMapping("/employee/{employeeId}/entrys/createEntry/")
-    public String createEntry(
-            @ModelAttribute Employee employee) {
+    public String createEntry(@ModelAttribute Employee employee) {
         Entry entry = new Entry();
         entryServiceImpl.save(entry);
-        return "redirect:/entry/entryEdit/{entryId}";
+        return "redirect:/entry/entryEdit/" + entry.getId();
     }
 
-    @PostMapping("entry/entryEdit")
-    public String editEntry(@ModelAttribute Entry entry, Model model) {
-        entry = entryServiceImpl.getById(entry.getId());
-        model.addAttribute("entry", entry);
+    @GetMapping("/entry/entryEdit/{entryId}")
+    public String editEntry(@PathVariable(value = "entryId") long id,Model model) {
+       Entry entry = entryServiceImpl.getById(id);
+       model.addAttribute("entry", entry);
         return "entrys";
     }
-    /*
-    @GetMapping("/entry/save")
+
+    @PostMapping("/entry/save")
     public String saveEntry(@ModelAttribute("entry") Entry entry) {
         entryServiceImpl.save(entry);
-        return "redirect:/entry/entryEdit/";
+        return "redirect:/entry/entryEdit/" + entry.getId();
     }
-    */
 
 
+/*
     @GetMapping("/entry/")
     public String viewHomePage(Model model) {
         model.addAttribute("allemplist", entryServiceImpl.getAllEntrys());
         return "redirect:entry/entryIndex";
-    }
-
-
+  */
+/*
     @GetMapping("/employee/{employeeId}/entrys/{entryId}}/createActivity")
     public String addActivity(@RequestParam Long employeeId,
                               @RequestParam Long entryId,
@@ -86,6 +66,7 @@ public class EntryController {
         // save entry, save activity
         return "/saveActivity";
     }
+    */
     /*
     @PostMapping("/saveActivity")
     public String saveActivity(@ModelAttribute("activity") Activity activity){

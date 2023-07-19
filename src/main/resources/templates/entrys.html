@@ -12,54 +12,66 @@
 <div class="container">
     <h1>Entrys</h1>
     <hr>
-    <button type="submit" class="btn btn-info mb-4">
-        Save Entry
-    </button>
-    <form action="#"
+    <form action="#" th:action="@{/entry/save}" th:object="${entry}"
           method="POST">
+
+
+        <button type="submit" class="btn btn-info mb-4">
+            Save Entry
+        </button>
+
+
         <input id="Description" onkeyup="checkContent()" type="text" placeholder="Description..."
-               class="form-control mb-4 col-4">
+               class="form-control mb-4 col-4"
+               th:field="*{description}">
         <input id="EntryField" onkeyup="checkContent()" type="text" placeholder="Entry text..."
-               class="form-control mb-4 col-4">
+               class="form-control mb-4 col-4"
+               th:field="*{text}">
         <div>
             <div class="form-check form-check-inline">
                 <input type="radio" placeholder="Mood"
                        class="form-check-input"
                        name="Mood"
-                       value="1">
+                       value="1"
+                       th:field="*{mood}">
                 <label class="form-check-label">Frown</label>
             </div>
             <div class="form-check form-check-inline">
                 <input type="radio" placeholder="Mood"
                        class="form-check-input"
                        name="Mood"
-                       value="2">
+                       value="2"
+                       th:field="*{mood}">
                 <label class="form-check-label">Bad</label>
             </div>
             <div class="form-check form-check-inline">
                 <input type="radio" placeholder="Mood"
                        class="form-check-input"
                        name="Mood"
-                       value="3">
+                       value="3"
+                       th:field="*{mood}">
                 <label class="form-check-label">OK</label>
             </div>
             <div class="form-check form-check-inline">
                 <input type="radio" placeholder="Mood"
                        class="form-check-input"
                        name="Mood"
-                       value="4">
+                       value="4"
+                       th:field="*{mood}">
                 <label class="form-check-label">Smile</label>
             </div>
             <div class="form-check form-check-inline">
                 <input type="radio" placeholder="Mood"
                        class="form-check-input"
                        name="Mood"
-                       value="5">
+                       value="5"
+                       th:field="*{mood}">
                 <label class="form-check-label">Shine</label>
             </div>
         </div>
     </form>
     <hr>
+    <!--
     <form action="#" th:action="@{'/employee/{employeeId}/entrys/{entryId}}/createActivity'}" th:object="${activity}"
           method="POST">
         <input id="ActivityField" onkeyup="checkContent()" type="text" placeholder="Activity text..."
@@ -70,6 +82,7 @@
             Add Activity
         </button>
     </form>
+    -->
 
     <hr>
     <div name="acitvitys">

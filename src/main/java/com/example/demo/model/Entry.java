@@ -17,6 +17,7 @@ public class Entry {
     private int mood;
 
     private String description;
+    private Employee employee;
     public long getId() {
         return id;
     }
@@ -32,6 +33,30 @@ public class Entry {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getMood() {
+        return mood;
+    }
+
+    public void setMood(int mood) {
+        this.mood = mood;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Employee getEmployee() {
+        return employee;
+    }
+
+    public void setEmployee(Employee employee) {
+        this.employee = employee;
     }
 }
 
