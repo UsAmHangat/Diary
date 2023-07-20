@@ -28,11 +28,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr th:each="entry:${allEntryList}">
+        <tr th:each="entry:${employee.entries}">
             <td th:text="${entry.description}"></td>
 
-            <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id}}"
-                   class="btn btn-primary">Show Entry</a>
+            <td th:text="${entry.date}"></td>
+
+            <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/entryEdit' + ${entry.id}}"
+                   class="btn btn-primary">Update</a>
 
 
                 <a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id} + '/deleteEntry/}"

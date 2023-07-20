@@ -30,23 +30,29 @@ public class EntryController {
     }
 
     @PostMapping("/employee/{employeeId}/entrys/createEntry/")
-    public String createEntry(@ModelAttribute Employee employee) {
+    public String createEntry(@PathVariable(value = "employeeId") long id) {
+        Employee employee = employeeServiceImpl.getById(id);
         Entry entry = new Entry();
+        entry.setEmployee(employee);
         entryServiceImpl.save(entry);
-        return "redirect:/entry/entryEdit/" + entry.getId();
+        return "redirect:/employee/{employeeId}/entry/entryEdit/" + entry.getId();
     }
 
-    @GetMapping("/entry/entryEdit/{entryId}")
-    public String editEntry(@PathVariable(value = "entryId") long id,Model model) {
-       Entry entry = entryServiceImpl.getById(id);
-       model.addAttribute("entry", entry);
+    @GetMapping("/employee/{employeeId}/entry/entryEdit/{entryId}")
+    public String editEntry(@PathVariable(value = "entryId") long entryId,@PathVariable(value = "employeeId") long employeeId, Model model) {
+        Entry entry = entryServiceImpl.getById(entryId);
+        Employee employee = employeeServiceImpl.getById(employeeId);
+        model.addAttribute("entry", entry);
+        model.addAttribute("employee",employee);
         return "entrys";
     }
 
-    @PostMapping("/entry/save")
-    public String saveEntry(@ModelAttribute("entry") Entry entry) {
+    @PostMapping("/employee/{employeeId}/entry/entryEdit/{entryId}/save")
+    public String saveEntry(@PathVariable(value = "entryId") long entryId,@PathVariable(value = "employeeId") long employeeId, @ModelAttribute("entry") Entry entry) {
+        entry.setId(entryId);
+        entry.setEmployee(employeeServiceImpl.getById(employeeId));
         entryServiceImpl.save(entry);
-        return "redirect:/entry/entryEdit/" + entry.getId();
+        return "redirect:/employee/showEmployee/" + entry.getEmployee().getId();
     }
 
 
