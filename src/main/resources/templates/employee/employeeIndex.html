@@ -15,9 +15,26 @@
     <h3>
         <td th:text="${employee.name}"></td>
     </h3>
-    <form action="#" th:action="@{'/employee/' + ${employee.id} + '/entrys/createEntry/'}" method="POST">
-        <button type="submit" class="btn btn-info mb-4">Add Entry</button>
-    </form>
+    <table style="width:80%" border="1"
+           class="table table-striped table-responsive-md">
+        <form action="#" th:action="@{'/employee/' + ${employee.id} + '/entrys/createEntry/'}" method="POST">
+            <button type="submit" class="btn btn-info mb-4 col-4">Add Entry</button>
+        </form>
+
+
+        <form action="#" th:action="@{'/employee/updateEmployee/' + ${employee.id}}">
+            <button class="btn btn-secondary mb-4 col-4">
+                Update
+            </button>
+        </form>
+
+
+        <form method="post" action="#" th:action="@{'/do-logout'}">
+            <button class="btn btn-danger mb-4 col-4">
+                Logout
+            </button>
+        </form>
+    </table>
     <table style="width:80%" border="1"
            class="table table-striped table-responsive-md">
         <thead>
@@ -33,7 +50,7 @@
 
             <td th:text="${entry.date}"></td>
 
-            <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/entryEdit' + ${entry.id}}"
+            <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/entryEdit/' + ${entry.id}}"
                    class="btn btn-primary">Update</a>
 
 

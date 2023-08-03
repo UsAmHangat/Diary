@@ -9,9 +9,9 @@
 </head>
 <body>
 <div class="container">
-    <h1>Employee Management System</h1>
+    <h1>Update Account</h1>
     <hr>
-    <h2>Update Employee</h2>
+    <h2>Please check Information carefully</h2>
 
     <form action="#" th:action="@{/employee/save}" th:object="${employee}"
           method="POST">
@@ -23,7 +23,12 @@
 
         <input type="text" th:field="*{email}" class="form-control mb-4 col-4">
 
-        <button type="submit" class="btn btn-info col-2"> Update Employee</button>
+        <button type="submit" class="btn btn-info col-2"> Update User</button>
+
+        <form action="#" th:action="@{'/employee/deleteEmployee/' + ${employee.id}}">
+            <button class="btn btn-danger col-2 ">
+                Delete User
+            </button>
 
 
     </form>

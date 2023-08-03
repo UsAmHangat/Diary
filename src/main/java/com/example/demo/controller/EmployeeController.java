@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.Employee;
+import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.service.EmployeeServiceImpl;
 import com.example.demo.service.EntryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,52 +12,68 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import java.security.Principal;
 import java.util.Date;
 
 @Controller
 public class EmployeeController {
 
     @Autowired
-    private EmployeeServiceImpl employeeServiceImpl;
-    @Autowired
-    private EntryServiceImpl entryServiceImpl;
+    private EmployeeRepository employeeRepository;
 
     @GetMapping("/employee/")
     public String viewHomePage(Model model) {
-        model.addAttribute("allemplist", employeeServiceImpl.getAllEmployee());
+        model.addAttribute("allemplist", employeeRepository.findAll());
         return "index";
     }
 
-    @GetMapping("/employee/addnew")
+    @GetMapping("/")
+    public String getHomepage(){
+        return "redirect:/login";
+    }
+
+
+
+    @GetMapping("/registration")
     public String addNewEmployee(Model model) {
         Employee employee = new Employee();
         model.addAttribute("employee", employee);
         return "employee/newemployee";
     }
 
+
     @PostMapping("/employee/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {
-        employeeServiceImpl.save(employee);
-        return "redirect:/employee/";
+        employeeRepository.save(employee);
+        return "redirect:/login";
+    }
+
+    @GetMapping("/employee/showEmployee")
+    public String showEmployee(Model model, Principal principal) {
+        System.out.println("WAAAG: "+principal.getName());
+        Employee employee = employeeRepository.findByEmail(principal.getName());
+        model.addAttribute("employee", employee);
+        return "employee/employeeIndex";
+    }
+
+    @GetMapping("/employee/showEmployee/{id}")
+    public String showEmployee(Model model, @PathVariable(value = "id") long id) {
+        Employee employee = employeeRepository.findById(id).get();
+        model.addAttribute("employee", employee);
+        return "employee/employeeIndex";
     }
 
     @GetMapping("/employee/updateEmployee/{id}")
     public String updateForm(@PathVariable(value = "id") long id, Model model) {
-        Employee employee = employeeServiceImpl.getById(id);
+        Employee employee = employeeRepository.findById(id).get();
         model.addAttribute("employee", employee);
         return "employee/employeeUpdate";
     }
 
     @GetMapping("/employee/deleteEmployee/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
-        employeeServiceImpl.deleteViaId(id);
+        employeeRepository.deleteById(id);
         return "redirect:/employee/";
 
-    }
-    @GetMapping("/employee/showEmployee/{id}")
-    public String showEmployee(Model model, @PathVariable(value = "id") long id) {
-        Employee employee = employeeServiceImpl.getById(id);
-        model.addAttribute("employee", employee);
-        return "employee/employeeIndex";
     }
 }

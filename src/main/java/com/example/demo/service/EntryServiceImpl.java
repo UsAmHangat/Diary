@@ -11,46 +11,40 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class EntryServiceImpl
-        implements EntryServices {
+public class EntryServiceImpl {
 
-    @Autowired
-    private EntryRepository entRepo;
-
-    @Autowired
-    private EmployeeRepository employeeRepository;
-
-    @Override
-    public List<Entry> getAllEntrys() {
-        return entRepo.findAll();
-    }
-
+//    @Autowired
+//    private EntryRepository entRepo;
+//
+//    @Autowired
+//    private EmployeeRepository employeeRepository;
+//
 //    @Override
-//    public List<Entry> getAllEntrysByEmployeeId(Long id) {
-//        employeeRepository.
-//        return employeeRepository.findById(id);
+//    public List<Entry> getAllEntrys() {
+//        return entRepo.findAll();
 //    }
-
-    @Override
-    public void save(Entry entry) {
-        entRepo.save(entry);
-    }
-
-    @Override
-    public Entry getById(Long id) {
-        Optional<Entry> optional = entRepo.findById(id);
-        Entry entry = null;
-        if (optional.isPresent()) {
-            entry = optional.get();
-        } else {
-            throw new RuntimeException(
-                    "Entry not found for id : " + id);
-        }
-        return entry;
-    }
-
-    @Override
-    public void deleteViaId(Long id) {
-        entRepo.deleteById(id);
-    }
+//
+//
+//    @Override
+//    public void save(Entry entry) {
+//        entRepo.save(entry);
+//    }
+//
+//    @Override
+//    public Entry getById(Long id) {
+//        Optional<Entry> optional = entRepo.findById(id);
+//        Entry entry = null;
+//        if (optional.isPresent()) {
+//            entry = optional.get();
+//        } else {
+//            throw new RuntimeException(
+//                    "Entry not found for id : " + id);
+//        }
+//        return entry;
+//    }
+//
+//    @Override
+//    public void deleteViaId(Long id) {
+//        entRepo.deleteById(id);
+//    }
 }
