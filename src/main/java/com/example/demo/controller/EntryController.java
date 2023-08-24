@@ -1,7 +1,9 @@
 package com.example.demo.controller;
 
+import com.example.demo.model.Activity;
 import com.example.demo.model.Employee;
 import com.example.demo.model.Entry;
+import com.example.demo.repository.ActivityRepository;
 import com.example.demo.repository.EmployeeRepository;
 import com.example.demo.repository.EntryRepository;
 import com.example.demo.service.ActivityServiceImpl;
@@ -17,6 +19,8 @@ public class EntryController {
     private EmployeeRepository employeeRepository;
     @Autowired
     private EntryRepository entryRepository;
+    @Autowired
+    private ActivityRepository activityRepository;
 
     @Autowired
     private ActivityServiceImpl activityServiceImpl;
