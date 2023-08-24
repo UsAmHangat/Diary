@@ -1,9 +1,8 @@
 package com.example.demo.controller;
 
+import com.example.demo.SecurityConfig;
 import com.example.demo.model.Employee;
 import com.example.demo.repository.EmployeeRepository;
-import com.example.demo.service.EmployeeServiceImpl;
-import com.example.demo.service.EntryServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +16,8 @@ import java.util.Date;
 
 @Controller
 public class EmployeeController {
+    @Autowired
+    private SecurityConfig securityConfig;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -41,6 +42,12 @@ public class EmployeeController {
         return "employee/newemployee";
     }
 
+    @PostMapping("/registration")
+    public String registerEmployee(@ModelAttribute("employee") Employee employee) {
+        employee.setPassword(securityConfig.passwordEncoder().encode(employee.getPassword()));
+        employeeRepository.save(employee);
+        return "redirect:/login";
+    }
 
     @PostMapping("/employee/save")
     public String saveEmployee(@ModelAttribute("employee") Employee employee) {

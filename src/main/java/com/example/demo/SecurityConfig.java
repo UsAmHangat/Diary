@@ -43,7 +43,7 @@ public class SecurityConfig {
                 .build();
         for (Employee employee : employeeRepository.findAll()) {
             UserDetails tmp = User.withUsername(employee.getEmail())
-                    .password(passwordEncoder().encode(employee.getPassword()))
+                    .password(employee.getPassword())
                     .roles("USER")
                     .build();
             users.add(tmp);
