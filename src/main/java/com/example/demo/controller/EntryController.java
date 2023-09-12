@@ -62,8 +62,4 @@ public class EntryController {
         entryRepository.save(entry);
         return "redirect:/employee/showEmployee/" + entry.getEmployee().getId();
     }
-
-
-
-
 }
