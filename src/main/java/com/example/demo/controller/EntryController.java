@@ -12,6 +12,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 public class EntryController {
 
@@ -35,6 +37,7 @@ public class EntryController {
     @PostMapping("/employee/{employeeId}/entrys/createEntry/")
     public String createEntry(@PathVariable(value = "employeeId") long id) {
         Employee employee = employeeRepository.findById(id).get();
+
         Entry entry = new Entry();
         entry.setEmployee(employee);
         entryRepository.save(entry);
@@ -45,8 +48,10 @@ public class EntryController {
     public String editEntry(@PathVariable(value = "entryId") long entryId,@PathVariable(value = "employeeId") long employeeId, Model model) {
         Entry entry = entryRepository.findById(entryId).get();
         Employee employee = employeeRepository.findById(employeeId).get();
+        List<Activity> activity = activityRepository.findByEntryId(entryId);
         model.addAttribute("entry", entry);
         model.addAttribute("employee",employee);
+        model.addAttribute("activities", activity);
         return "entrys";
     }
 
