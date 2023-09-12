@@ -24,7 +24,7 @@
         </button>
 
         <p>Date/Time:
-        <p id="date" type="date" th:text="${T(com.example.demo.utils.Utils).format(entry.date)}" ></p>
+        <p id="date" type="date" th:text="${T(com.example.demo.utils.Utils).format(entry.date)}"></p>
 
         <input id="Description" onkeyup="checkContent()" type="text" placeholder="Description..."
                class="form-control mb-4 col-4"
@@ -77,14 +77,23 @@
         </div>
     </form>
     <hr>
-    <input id="ActivityField" onkeyup="checkContent()" type="text" placeholder="Activity..."
-           class="form-control mb-4 col-4"
-           th:field="*{activities}">
-    <hr>
-    <div name="activities">
-        <a>activities go here</a>
-    </div>
-    <hr>
+    <!-- vvvv Alpine Component vvvv -->
+    <container x-data="{ activities: [], inputElement: ''}">
+        <input id="ActivityField" type="text" placeholder="Activity..."
+               class="form-control mb-4 col-4"
+               th:field="*{activities}"
+               x-model="inputElement"
+               @keyup.enter="activities.push(inputElement)"
+        >
+        <hr>
+        <ul name="activities" >
+            <template x-for-="activity in activities">
+                <li x-text="activity"></li>
+            </template>
+        </ul>
+        <hr>
+    </container>
+    <!-- ^^^^ Alpine Component ^^^^ -->
     <a th:href="@{'/employee/showEmployee/'  + ${employee.id}}"> Back to Entries</a>
 </div>
 
