@@ -77,13 +77,13 @@
     <hr>
     <input id="ActivityField" onkeyup="checkContent()" type="text" placeholder="Activity..."
            class="form-control mb-4 col-4"
-           th:field="*{activity}">
+           th:field="*{activities}">
     <hr>
-    <div name="activity">
+    <div name="activities">
         <a>activities go here</a>
     </div>
     <hr>
-    <a th:href="@{/employee/}"> Back to Employeelist</a>
+    <a th:href="@{'/employee/showEmployee/'  + ${employee.id}}"> Back to Entries</a>
 </div>
 
 <script>
