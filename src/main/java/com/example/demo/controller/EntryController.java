@@ -62,4 +62,22 @@ public class EntryController {
         entryRepository.save(entry);
         return "redirect:/employee/showEmployee/" + entry.getEmployee().getId();
     }
+
+    @PostMapping("/entry/{entryId}/activity/save")
+    public Entry saveActivity(@PathVariable(value = "entryId") long entryId, @ModelAttribute("entry") Entry entry, @ModelAttribute("activity") String activity){
+        var repoEntry = entryRepository.findById(entryId);
+
+        // early return | bouncer pattern | precondition check
+        if (repoEntry.isEmpty()) {
+          // unhappy path
+            return null;
+        }
+
+        // happy path
+        var realEntry = repoEntry.get();
+        activity.setEntry(realEntry);
+        activityRepository.save(activity);
+
+        return realEntry;
+    }
 }
