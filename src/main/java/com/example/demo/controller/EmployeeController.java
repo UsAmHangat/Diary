@@ -25,7 +25,7 @@ public class EmployeeController {
     @GetMapping("/employee/")
     public String viewHomePage(Model model) {
         model.addAttribute("allemplist", employeeRepository.findAll());
-        return "index";
+        return "redirect:/login";
     }
 
     @GetMapping("/")
@@ -80,7 +80,7 @@ public class EmployeeController {
     @GetMapping("/employee/deleteEmployee/{id}")
     public String deleteThroughId(@PathVariable(value = "id") long id) {
         employeeRepository.deleteById(id);
-        return "redirect:/employee/";
+        return "redirect:/login";
 
     }
 }

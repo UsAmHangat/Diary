@@ -50,11 +50,12 @@
 
             <td th:text="${entry.date}"></td>
 
-            <td><a th:href="@{'/employee/' + ${employee.id} + '/entry/entryEdit/' + ${entry.id}}"
+            <td>
+                <a th:href="@{'/employee/' + ${employee.id} + '/entry/entryEdit/' + ${entry.id}}"
                    class="btn btn-primary">Update</a>
 
 
-                <a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id} + '/deleteEntry/}"
+                <a th:href="@{'/employee/' + ${employee.id} + '/entry/' + ${entry.id} + '/deleteEntry/'}"
                    class="btn btn-danger">Delete</a>
 
             </td>

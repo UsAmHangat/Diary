@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -48,36 +49,36 @@ public class EntryController {
     public String editEntry(@PathVariable(value = "entryId") long entryId,@PathVariable(value = "employeeId") long employeeId, Model model) {
         Entry entry = entryRepository.findById(entryId).get();
         Employee employee = employeeRepository.findById(employeeId).get();
-        List<Activity> activity = activityRepository.findByEntryId(entryId);
+        List<Activity> activities = activityRepository.findByEntryId(entryId);
+        String tmp = "";
+        for(Activity activity : activities) {
+            tmp += activity.getName()+";";
+        }
         model.addAttribute("entry", entry);
         model.addAttribute("employee",employee);
-        model.addAttribute("activities", activity);
+        model.addAttribute("activities", tmp);
         return "entrys";
     }
 
     @PostMapping("/employee/{employeeId}/entry/entryEdit/{entryId}/save")
-    public String saveEntry(@PathVariable(value = "entryId") long entryId,@PathVariable(value = "employeeId") long employeeId, @ModelAttribute("entry") Entry entry) {
+    public String saveEntry(@PathVariable(value = "entryId") long entryId,@PathVariable(value = "employeeId") long employeeId, @ModelAttribute("entry") Entry entry, @ModelAttribute("activitiesHolder") String activitiesHolder) {
         entry.setId(entryId);
         entry.setEmployee(employeeRepository.findById(employeeId).get());
         entryRepository.save(entry);
+        activityRepository.removeByEntry(entry);
+        for(String activityName : activitiesHolder.split(";")) {
+            if(!activityName.isEmpty()) {
+                Activity newActivity = new Activity();
+                newActivity.setEntry(entry);
+                newActivity.setName(activityName);
+                activityRepository.save(newActivity);
+            }
+        }
         return "redirect:/employee/showEmployee/" + entry.getEmployee().getId();
     }
-
-    @PostMapping("/entry/{entryId}/activity/save")
-    public Entry saveActivity(@PathVariable(value = "entryId") long entryId, @ModelAttribute("entry") Entry entry, @ModelAttribute("activity") String activity){
-        var repoEntry = entryRepository.findById(entryId);
-
-        // early return | bouncer pattern | precondition check
-        if (repoEntry.isEmpty()) {
-          // unhappy path
-            return null;
-        }
-
-        // happy path
-        var realEntry = repoEntry.get();
-        activity.setEntry(realEntry);
-        activityRepository.save(activity);
-
-        return realEntry;
+    @GetMapping("/employee/{employeeId}/entry/{entryId}/deleteEntry/")
+    public String deleteEntry(@PathVariable(value = "employeeId") long employeeId,@PathVariable(value = "entryId") long entryId){
+        entryRepository.deleteById(entryId);
+        return "redirect:/employee/showEmployee/" + employeeId;
     }
 }

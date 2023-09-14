@@ -8,7 +8,7 @@
           integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
 
-        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
 </head>
 <body>
 <div class="container">
@@ -75,18 +75,30 @@
                 <label class="form-check-label">Shine</label>
             </div>
         </div>
+        <input style="display: none" name="activitiesHolder" value="" id="activitiesHolder"/>
+
     </form>
     <hr>
+    <input style="display: none" id="currentActivitiesHolder" th:value="${activities}"/>
+
+    <script th:inline="javascript">
+        let currentActivities = document.getElementById('currentActivitiesHolder').value
+        document.getElementById('activitiesHolder').value = currentActivities;
+        let activities = [];
+        for(let tmp of currentActivities.split(";")) {
+           if(tmp.length > 0) {
+                activities.push(tmp);
+            }
+        }
+    </script>
     <!-- vvvv Alpine Component vvvv -->
-    <container x-data="{ activities: [], inputElement: ''}">
+    <container x-data="{ activities: activities, inputElement: ''}">
         <input id="ActivityField" type="text" placeholder="Activity..."
                class="form-control mb-4 col-4"
-               th:field="*{activities}"
                x-model="inputElement"
-               @keyup.enter="activities.push(inputElement)"
-        >
+               @keyup.enter="document.getElementById('ActivityField').value = ''; activities.push(inputElement); document.getElementById('activitiesHolder').value += ';' + inputElement;">
         <hr>
-        <ul name="activities" >
+        <ul name="activities">
             <template x-for-="activity in activities">
                 <li x-text="activity"></li>
             </template>
